@@ -108,41 +108,7 @@ public class NotesTextView: UITextView{
     }
     
     override public func paste(_ sender: Any?) {
-        
         super.paste(sender)
-        
-        // Setup code in overridden UITextView.copy/paste
-        let pb = UIPasteboard.general
-        
-        
-        // pasting from external source might paste some attributes like images, fonts, colors which are not supported.
-        // converting it to plain text to remove all the attributes and give it default font of body.
-        
-        // UTI List
-        let utf8StringType = "public.utf8-plain-text"
-        
-        pb.items.forEach { (pbDict) in
-            if let pastedString = pbDict[utf8StringType] as? String{
-                
-                // When pasting apply body font attributes
-                let attributes: [NSAttributedString.Key : Any] = [
-                    NSAttributedString.Key.font : NotesFontProvider.shared.bodyFont,
-                    NSAttributedString.Key.foregroundColor : UIColor.label]
-                
-                let attributed = NSAttributedString(string: pastedString, attributes: attributes)
-                
-                // how many characters to advance?
-                // string counts emojis as single character so don't use string.count
-                // convert it to NSString and check its length
-                
-                let rawString = pastedString as NSString
-                
-                // Insert pasted string
-                self.textStorage.insert(attributed, at:selectedRange.location)
-                self.selectedRange.location += rawString.length
-                self.selectedRange.length = 0
-            }
-        }
     }
     
     override public func shouldChangeText(in range: UITextRange, replacementText text: String) -> Bool {
