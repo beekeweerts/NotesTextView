@@ -109,6 +109,8 @@ public class NotesTextView: UITextView{
     
     override public func paste(_ sender: Any?) {
         
+        super.paste(sender)
+        
         // Setup code in overridden UITextView.copy/paste
         let pb = UIPasteboard.general
         
